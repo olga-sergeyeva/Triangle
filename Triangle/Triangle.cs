@@ -8,9 +8,9 @@ namespace Triangle
 {
     class Triangle
     {
-        Edge[] edges = new Edge[3];
-        Point[] vertices = new Point[3];
-
+        public Point[] vertices;
+        public Edge[] edges;
+       
         public Triangle(Point[] vertices, Edge[] edges)
         {
             this.vertices = vertices;

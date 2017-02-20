@@ -32,6 +32,7 @@ namespace Triangle
 
             Triangle[] triangles = new Triangle[n];
 
+            triangles[0] = new Triangle(vertices, edges);
             for (int i = 0; i < triangles.Length; i++)
             {
                 Console.Write("Координаты точек треугольника {0}: ", i + 1);
