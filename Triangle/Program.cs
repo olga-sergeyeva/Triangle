@@ -16,6 +16,9 @@ namespace Triangle
             Console.Write("Введите число треугольников в массиве: ");
             int n = Convert.ToInt32(Console.ReadLine());
 
+            Console.WriteLine("Выберите действие ");
+            Console.Write("1 - Сгенерировать координаты точек треугольник, 2 - Ввести координаты точки с клавиатуры: ");
+            int option = Convert.ToInt32(Console.ReadLine());
 
             Point[] vertices = new Point[3]
             {
@@ -31,35 +34,75 @@ namespace Triangle
                 new Edge(vertices[2], vertices[0])
             };
 
-            
             Triangle[] triangles = new Triangle[n];
-            for (int i = 0; i < triangles.Length; i++)
+
+            switch (option)
             {
-                Console.Write("Координаты точек треугольника {0}: ", i + 1);
-                for (int j = 0; j < vertices.Length; j++)
-                    Point.GeneratePoints(vertices);
-                Point.PrintPoints(vertices);
-                Console.WriteLine();
-
-                triangles[i] = new Triangle(vertices, edges);
-
-                if (Triangle.CheckTriangle(edges)) //проверка треугольника на существование
-                {
-                    int type = Triangle.GetTriangleType(edges); //получает значение, соответствующее определенному типу треугольника
-                    if (type == 1 | type == 2)
+                case 1:
+                    for (int i = 0; i < triangles.Length; i++)
                     {
-                        AvgRightPerimeter += Triangle.GetPerimeter(edges);
-                        RighTriangleCounter++;
-                    }
+                        Console.Write("Координаты точек треугольника {0}: ", i + 1);
+                        for (int j = 0; j < vertices.Length; j++)
+                            Point.GeneratePoints(vertices);
+                        Point.PrintPoints(vertices);
+                        Console.WriteLine();
 
-                    if (type == 1 | type == 3)
-                    {
-                        AvgIsoscelesArea += Triangle.GetArea(edges);
-                        IsoscelesTriangleCounter++;
+                        triangles[i] = new Triangle(vertices, edges);
+
+                        if (Triangle.CheckTriangle(edges)) //проверка треугольника на существование
+                        {
+                            int type = Triangle.GetTriangleType(edges); //получает значение, соответствующее определенному типу треугольника
+                            if (type == 1 | type == 2)
+                            {
+                                AvgRightPerimeter += Triangle.GetPerimeter(edges);
+                                RighTriangleCounter++;
+                            }
+
+                            if (type == 1 | type == 3)
+                            {
+                                AvgIsoscelesArea += Triangle.GetArea(edges);
+                                IsoscelesTriangleCounter++;
+                            }
+                            Console.WriteLine("Периметр треугольника {0} = {1}", i + 1, Triangle.GetPerimeter(edges));
+                            Console.WriteLine("Площадь треугольника {0} = {1}", i + 1, Triangle.GetArea(edges));
+                        }
                     }
-                    Console.WriteLine("Периметр треугольника {0} = {1}", i + 1, Triangle.GetPerimeter(edges));
-                    Console.WriteLine("Площадь треугольника {0} = {1}", i + 1, Triangle.GetArea(edges));
-                }
+                    break;
+
+                case 2:
+                    for (int i = 0; i < triangles.Length; i++)
+                    {
+                        for (int j = 0; j < vertices.Length; j++)
+                        {
+                            Console.Write("Введите координату x точки {0} треугольника {1}: ", j, i + 1);
+                            vertices[j].x = Convert.ToDouble(Console.ReadLine());
+                            Console.Write("Введите координату y точки {0} треугольника {1}: ", j, i + 1);
+                            vertices[j].y = Convert.ToDouble(Console.ReadLine());
+                        }
+
+                        Point.PrintPoints(vertices);
+                        Console.WriteLine();
+
+                        triangles[i] = new Triangle(vertices, edges);
+                        if (Triangle.CheckTriangle(edges)) //проверка треугольника на существование
+                        {
+                            int type = Triangle.GetTriangleType(edges); //получает значение, соответствующее определенному типу треугольника
+                            if (type == 1 | type == 2)
+                            {
+                                AvgRightPerimeter += Triangle.GetPerimeter(edges);
+                                RighTriangleCounter++;
+                            }
+
+                            if (type == 1 | type == 3)
+                            {
+                                AvgIsoscelesArea += Triangle.GetArea(edges);
+                                IsoscelesTriangleCounter++;
+                            }
+                            Console.WriteLine("Периметр треугольника {0} = {1}", i + 1, Triangle.GetPerimeter(edges));
+                            Console.WriteLine("Площадь треугольника {0} = {1}", i + 1, Triangle.GetArea(edges));
+                        }
+                    }
+                    break;
             }
             Console.WriteLine("Средний периметр всех прямоугольных треугольников равен {0}", AvgRightPerimeter /= RighTriangleCounter);
             Console.WriteLine("Cредняя площадь всех равнобедренных треугольников равна {0}", AvgIsoscelesArea /= IsoscelesTriangleCounter);
