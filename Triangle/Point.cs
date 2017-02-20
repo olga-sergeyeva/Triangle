@@ -23,8 +23,8 @@ namespace Triangle
 
             for (int i = 0; i < points.Length; i++)
             {
-                points[i].x = Generator.Next(0, 10);
-                points[i].y = Generator.Next(0, 10);
+                points[i].x = Generator.Next(-100, 100);
+                points[i].y = Generator.Next(-100, 100);
             }
         }
 

@@ -31,27 +31,28 @@ namespace Triangle
 
         public static int GetTriangleType(Edge[] edges)
         {
-            double a, b, c; //a, b, c - длины сторон
-            a = Edge.GetLength(edges[0].v1, edges[0].v2);
-            b = Edge.GetLength(edges[1].v1, edges[1].v2);
-            c = Edge.GetLength(edges[2].v1, edges[2].v2);
+                double a, b, c; //a, b, c - длины сторон
+                a = Edge.GetLength(edges[0].v1, edges[0].v2);
+                b = Edge.GetLength(edges[1].v1, edges[1].v2);
+                c = Edge.GetLength(edges[2].v1, edges[2].v2);
 
-            if (((a * a + b * b == c * c) || (b * b + c * c == a * a) || (c * c + a * a == b)) & ((a == b) || (a == c) || (b == c)))
-                return 1; //(right and isosceles) прямоугольный и равнобедренный
-            else if ((a * a + b * b == c * c) || (b * b + c * c == a * a) || (c * c + a * a == b))
-                return 2; //(right) прямоугольный
-            else if ((a == b) || (a == c) || (b == c))
-                return 3; //(isosceles) равнобедренный
-            else return 4; //(normal) обычный
+                if (((a * a + b * b == c * c) | (b * b + c * c == a * a) | (c * c + a * a == b)) & ((a == b) | (a == c) | (b == c)))
+                    return 1; //(right and isosceles) прямоугольный и равнобедренный
+                else if ((a * a + b * b == c * c) | (b * b + c * c == a * a) | (c * c + a * a == b * b))
+                    return 2; //(right) прямоугольный
+                else if ((a == b) | (a == c) | (b == c))
+                    return 3; //(isosceles) равнобедренный
+                else return 4; //(normal) обычный     
         }
 
         public static double GetPerimeter(Edge[] edges)
         {
-            return Edge.GetLength(edges[0].v1, edges[0].v2) + Edge.GetLength(edges[1].v1, edges[1].v2) + Edge.GetLength(edges[1].v1, edges[1].v2);
+            return Edge.GetLength(edges[0].v1, edges[0].v2) + Edge.GetLength(edges[1].v1, edges[1].v2) + Edge.GetLength(edges[2].v1, edges[2].v2);
         }
 
         public static double GetArea(Edge[] edges)
         {
+            
             double a, b, c, s; //a, b, c - длины сторон, s - (semiperimeter) полупериметр
             a = Edge.GetLength(edges[0].v1, edges[0].v2);
             b = Edge.GetLength(edges[1].v1, edges[1].v2);

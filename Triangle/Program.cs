@@ -10,8 +10,8 @@ namespace Triangle
     {
         static void Main(string[] args)
         {
-            double AvgRightPerimeter = 0, AvgIsoscelesArea = 0;
-            int RighTriangleCounter = 0, IsoscelesTriangleCounter = 0;
+            double AvgRightPerimeter = 0, AvgIsoscelesArea = 0; //Средний периметр прямоугольных треугольников, средняя площадь равнобедренных треугольников
+            int RighTriangleCounter = 0, IsoscelesTriangleCounter = 0; //счетчик прямоугольных треугольников, счетчик равнобедренных треугольников
 
             Console.Write("Введите число треугольников в массиве: ");
             int n = Convert.ToInt32(Console.ReadLine());
@@ -27,12 +27,11 @@ namespace Triangle
 
             for (int i = 0; i < triangles.Length; i++)
             {
-                Console.WriteLine("Координаты точек треугольника {0}: ", i + 1);
-                for(int j = 0; j < vertices.Length; j++)
-                {
+                Console.Write("Координаты точек треугольника {0}: ", i + 1);
+                for (int j = 0; j < vertices.Length; j++)
                     Point.GeneratePoints(vertices);
-                    Point.PrintPoints(vertices);
-                }
+                Point.PrintPoints(vertices);
+                Console.WriteLine();
 
                 Edge[] edges = new Edge[3]
                     {
@@ -43,9 +42,9 @@ namespace Triangle
 
                 triangles[i] = new Triangle(vertices, edges);
 
-                int type = Triangle.GetTriangleType(edges);
-                if (Triangle.CheckTriangle(edges))
+                if (Triangle.CheckTriangle(edges)) //проверка треугольника на существование
                 {
+                    int type = Triangle.GetTriangleType(edges); //получает значение, соответствующее определенному типу треугольника
                     if (type == 1 | type == 2)
                     {
                         AvgRightPerimeter += Triangle.GetPerimeter(edges);
@@ -58,14 +57,10 @@ namespace Triangle
                         IsoscelesTriangleCounter++;
                     }
                 }
-
             }
-
-            AvgRightPerimeter /= IsoscelesTriangleCounter;
-            AvgIsoscelesArea /= IsoscelesTriangleCounter;
-
-            Console.WriteLine("Средний периметр всех прямоугольных треугольников равен {0}", AvgRightPerimeter);
-            Console.WriteLine("Cредняя площадь всех равнобедренных треугольников равна {0}", AvgIsoscelesArea);
+           
+            Console.WriteLine("Средний периметр всех прямоугольных треугольников равен {0}", AvgRightPerimeter /= RighTriangleCounter);
+            Console.WriteLine("Cредняя площадь всех равнобедренных треугольников равна {0}", AvgIsoscelesArea /= IsoscelesTriangleCounter);
             Console.ReadLine();
         }
     }
