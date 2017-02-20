@@ -16,6 +16,7 @@ namespace Triangle
             Console.Write("Введите число треугольников в массиве: ");
             int n = Convert.ToInt32(Console.ReadLine());
 
+
             Point[] vertices = new Point[3]
             {
                 new Point(),
@@ -30,9 +31,8 @@ namespace Triangle
                 new Edge(vertices[2], vertices[0])
             };
 
+            
             Triangle[] triangles = new Triangle[n];
-
-            triangles[0] = new Triangle(vertices, edges);
             for (int i = 0; i < triangles.Length; i++)
             {
                 Console.Write("Координаты точек треугольника {0}: ", i + 1);
@@ -57,12 +57,10 @@ namespace Triangle
                         AvgIsoscelesArea += Triangle.GetArea(edges);
                         IsoscelesTriangleCounter++;
                     }
-
                     Console.WriteLine("Периметр треугольника {0} = {1}", i + 1, Triangle.GetPerimeter(edges));
                     Console.WriteLine("Площадь треугольника {0} = {1}", i + 1, Triangle.GetArea(edges));
                 }
             }
-
             Console.WriteLine("Средний периметр всех прямоугольных треугольников равен {0}", AvgRightPerimeter /= RighTriangleCounter);
             Console.WriteLine("Cредняя площадь всех равнобедренных треугольников равна {0}", AvgIsoscelesArea /= IsoscelesTriangleCounter);
             Console.ReadLine();
