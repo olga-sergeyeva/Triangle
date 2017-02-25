@@ -48,14 +48,17 @@ namespace Triangle
             a = edges[0].GetLength(edges[0].v1, edges[0].v2);
             b = edges[1].GetLength(edges[1].v1, edges[1].v2);
             c = edges[2].GetLength(edges[2].v1, edges[2].v2);
+            Console.WriteLine(a);
+            Console.WriteLine(b);
+            Console.WriteLine(c);
 
             if (((a * a + b * b == c * c) | (b * b + c * c == a * a) | (c * c + a * a == b * b)) & ((a == b) | (a == c) | (b == c)))
                     return 1; //(right and isosceles) прямоугольный и равнобедренный
                 else if ((a * a + b * b == c * c) | (b * b + c * c == a * a) | (c * c + a * a == b * b))
                     return 2; //(right) прямоугольный
-                else if ((a == b) | (a == c) | (b == c))
-                    return 3; //(isosceles) равнобедренный
-                else return 4; //(normal) обычный     
+            else if ((a == b) | (a == c) | (b == c))
+                return 3; //(isosceles) равнобедренный
+            else return 4; //(normal) обычный     
         }
 
         public double GetPerimeter(Point[] points)
@@ -71,7 +74,6 @@ namespace Triangle
 
         public double GetArea(Point[] points)
         {
-
             edges = CreateEdges(points);
             double a = 0, b = 0, c = 0, s = 0;
             a = edges[0].GetLength(edges[0].v1, edges[0].v2);
