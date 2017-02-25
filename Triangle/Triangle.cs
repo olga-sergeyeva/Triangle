@@ -8,35 +8,48 @@ namespace Triangle
 {
     class Triangle
     {
-        public Point[] vertices;
-        public Edge[] edges;
-       
-        public Triangle(Point[] vertices, Edge[] edges)
+        public Point[] points;
+        private Edge[] edges;
+
+        public Triangle(Point[] points)
         {
-            this.vertices = vertices;
-            this.edges = edges;
+            this.points = points;
         }
 
-        public static bool CheckTriangle(Edge[] edges)
+        private Edge[] CreateEdges(Point[] points)
         {
-            double a, b, c; //a, b, c - длины сторон
-            a = Edge.GetLength(edges[0].v1, edges[0].v2);
-            b = Edge.GetLength(edges[1].v1, edges[1].v2);
-            c = Edge.GetLength(edges[2].v1, edges[2].v2);
+            Edge[] edges = new Edge[points.Length];
+            for (int i = 0; i < points.Length; i++)
+            {
+                if (i < 2)
+                    edges[i] = new Edge(points[i], points[i + 1]);
+                else edges[i] = new Edge(points[i], points[0]);
+            }
+            return edges;
+        }
+
+        public bool CheckTriangle(Point[] points)
+        {
+            edges = CreateEdges(points);
+            double a = 0, b = 0, c = 0;
+            a = edges[0].GetLength(edges[0].v1, edges[0].v2);
+            b = edges[1].GetLength(edges[1].v1, edges[1].v2);
+            c = edges[2].GetLength(edges[2].v1, edges[2].v2);
 
             if ((a + b > c) && (b + c > a) && (c + a > b))
                 return true;
             else return false;
         }
 
-        public static int GetTriangleType(Edge[] edges)
+        public int GetTriangleType(Point[] points)
         {
-                double a, b, c; //a, b, c - длины сторон
-                a = Edge.GetLength(edges[0].v1, edges[0].v2);
-                b = Edge.GetLength(edges[1].v1, edges[1].v2);
-                c = Edge.GetLength(edges[2].v1, edges[2].v2);
+            edges = CreateEdges(points);
+            double a = 0, b = 0, c = 0;
+            a = edges[0].GetLength(edges[0].v1, edges[0].v2);
+            b = edges[1].GetLength(edges[1].v1, edges[1].v2);
+            c = edges[2].GetLength(edges[2].v1, edges[2].v2);
 
-                if (((a * a + b * b == c * c) | (b * b + c * c == a * a) | (c * c + a * a == b)) & ((a == b) | (a == c) | (b == c)))
+            if (((a * a + b * b == c * c) | (b * b + c * c == a * a) | (c * c + a * a == b * b)) & ((a == b) | (a == c) | (b == c)))
                     return 1; //(right and isosceles) прямоугольный и равнобедренный
                 else if ((a * a + b * b == c * c) | (b * b + c * c == a * a) | (c * c + a * a == b * b))
                     return 2; //(right) прямоугольный
@@ -45,19 +58,26 @@ namespace Triangle
                 else return 4; //(normal) обычный     
         }
 
-        public static double GetPerimeter(Edge[] edges)
+        public double GetPerimeter(Point[] points)
         {
-            return Edge.GetLength(edges[0].v1, edges[0].v2) + Edge.GetLength(edges[1].v1, edges[1].v2) + Edge.GetLength(edges[2].v1, edges[2].v2);
+            edges = CreateEdges(points);
+            double a = 0, b = 0, c = 0;
+            a = edges[0].GetLength(edges[0].v1, edges[0].v2);
+            b = edges[1].GetLength(edges[1].v1, edges[1].v2);
+            c = edges[2].GetLength(edges[2].v1, edges[2].v2);
+
+            return a + b + c;
         }
 
-        public static double GetArea(Edge[] edges)
+        public double GetArea(Point[] points)
         {
-            
-            double a, b, c, s; //a, b, c - длины сторон, s - (semiperimeter) полупериметр
-            a = Edge.GetLength(edges[0].v1, edges[0].v2);
-            b = Edge.GetLength(edges[1].v1, edges[1].v2);
-            c = Edge.GetLength(edges[2].v1, edges[2].v2);
-            s = GetPerimeter(edges) / 2;
+
+            edges = CreateEdges(points);
+            double a = 0, b = 0, c = 0, s = 0;
+            a = edges[0].GetLength(edges[0].v1, edges[0].v2);
+            b = edges[1].GetLength(edges[1].v1, edges[1].v2);
+            c = edges[2].GetLength(edges[2].v1, edges[2].v2);
+            s = GetPerimeter(points) / 2;
 
             return Math.Sqrt(s * (s - a) * (s - b) * (s - c));
         }

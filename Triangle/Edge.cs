@@ -17,7 +17,7 @@ namespace Triangle
             this.v2 = v2;
         }
 
-        public static double GetLength(Point v1, Point v2)
+        public double GetLength(Point v1, Point v2)
         {
             return Math.Sqrt(Math.Pow((v2.x - v1.x), 2) + Math.Pow((v2.y - v1.y), 2));
         }

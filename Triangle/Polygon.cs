@@ -6,16 +6,7 @@ using System.Threading.Tasks;
 
 namespace Triangle
 {
-    class Point
+    class Polygon
     {
-        public double x;
-        public double y;
-
-        public Point()
-        {
-            x = 0;
-            y = 0;
-        }
-
     }
 }

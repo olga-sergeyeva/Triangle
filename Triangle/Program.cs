@@ -8,6 +8,26 @@ namespace Triangle
 {
     class Program
     {
+        static void GeneratePoints(Point[] points)
+        {
+            Random Generator = new Random((int)DateTime.Now.Ticks);
+
+            for (int i = 0; i < points.Length; i++)
+            {
+                points[i].x = Generator.Next(-10, 10);
+                points[i].y = Generator.Next(-10, 10);
+            }
+        }
+
+        static void PrintPoints(Point[] points)
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                Console.Write(points[i].x + " ");
+                Console.Write(points[i].y + " ");
+            }
+        }
+
         static void Main(string[] args)
         {
             double AvgRightPerimeter = 0, AvgIsoscelesArea = 0; //cредний периметр прямоугольных треугольников, средняя площадь равнобедренных треугольников
@@ -17,7 +37,7 @@ namespace Triangle
             int n = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Выберите действие ");
-            Console.Write("1 - Сгенерировать координаты точек треугольник, 2 - Ввести координаты точки с клавиатуры: ");
+            Console.Write("1 - Сгенерировать координаты точек треугольника, 2 - Ввести координаты точек треугольника с клавиатуры: ");
             int option = Convert.ToInt32(Console.ReadLine());
 
             Point[] vertices = new Point[3]
@@ -25,13 +45,6 @@ namespace Triangle
                 new Point(),
                 new Point(),
                 new Point()
-            };
-
-            Edge[] edges = new Edge[3]
-            {
-                new Edge(vertices[0], vertices[1]),
-                new Edge(vertices[1], vertices[2]),
-                new Edge(vertices[2], vertices[0])
             };
 
             Triangle[] triangles = new Triangle[n];
@@ -43,30 +56,32 @@ namespace Triangle
                     {
                         Console.Write("Координаты точек треугольника {0}: ", i + 1);
                         for (int j = 0; j < vertices.Length; j++)
-                            Point.GeneratePoints(vertices);
-                        Point.PrintPoints(vertices);
+                          GeneratePoints(vertices);
+
+                        PrintPoints(vertices);
                         Console.WriteLine();
 
-                        triangles[i] = new Triangle(vertices, edges);
+                        triangles[i] = new Triangle(vertices);
 
-                        if (Triangle.CheckTriangle(edges)) //проверка треугольника на существование
+                        if (triangles[i].CheckTriangle(vertices)) //проверка треугольника на существование
                         {
-                            int type = Triangle.GetTriangleType(edges); //получает значение, соответствующее определенному типу треугольника
+                            int type = triangles[i].GetTriangleType(vertices); //получает значение, соответствующее определенному типу треугольника
                             if (type == 1 | type == 2)
                             {
-                                AvgRightPerimeter += Triangle.GetPerimeter(edges);
+                                AvgRightPerimeter += triangles[i].GetPerimeter(vertices);
                                 RighTriangleCounter++;
                             }
 
                             if (type == 1 | type == 3)
                             {
-                                AvgIsoscelesArea += Triangle.GetArea(edges);
+                                AvgIsoscelesArea += triangles[i].GetArea(vertices);
                                 IsoscelesTriangleCounter++;
                             }
-                            Console.WriteLine("Периметр треугольника {0} = {1}", i + 1, Triangle.GetPerimeter(edges));
-                            Console.WriteLine("Площадь треугольника {0} = {1}", i + 1, Triangle.GetArea(edges));
+                            Console.WriteLine("Периметр треугольника {0} = {1}", i + 1, triangles[i].GetPerimeter(vertices));
+                            Console.WriteLine("Площадь треугольника {0} = {1}", i + 1, triangles[i].GetArea(vertices));
                         }
                     }
+
                     break;
 
                 case 2:
@@ -80,28 +95,30 @@ namespace Triangle
                             vertices[j].y = Convert.ToDouble(Console.ReadLine());
                         }
 
-                        Point.PrintPoints(vertices);
+                        PrintPoints(vertices);
                         Console.WriteLine();
-
-                        triangles[i] = new Triangle(vertices, edges);
-                        if (Triangle.CheckTriangle(edges)) //проверка треугольника на существование
+                        
+                        triangles[i] = new Triangle(vertices);
+                        if (triangles[i].CheckTriangle(vertices)) //проверка треугольника на существование
                         {
-                            int type = Triangle.GetTriangleType(edges); //получает значение, соответствующее определенному типу треугольника
+                            int type = triangles[i].GetTriangleType(vertices); //получает значение, соответствующее определенному типу треугольника
                             if (type == 1 | type == 2)
                             {
-                                AvgRightPerimeter += Triangle.GetPerimeter(edges);
+                                AvgRightPerimeter += triangles[i].GetPerimeter(vertices);
                                 RighTriangleCounter++;
                             }
 
                             if (type == 1 | type == 3)
                             {
-                                AvgIsoscelesArea += Triangle.GetArea(edges);
+                                AvgIsoscelesArea += triangles[i].GetArea(vertices);
                                 IsoscelesTriangleCounter++;
                             }
-                            Console.WriteLine("Периметр треугольника {0} = {1}", i + 1, Triangle.GetPerimeter(edges));
-                            Console.WriteLine("Площадь треугольника {0} = {1}", i + 1, Triangle.GetArea(edges));
+                            Console.WriteLine("Периметр треугольника {0} = {1}", i + 1, triangles[i].GetPerimeter(vertices));
+                            Console.WriteLine("Площадь треугольника {0} = {1}", i + 1, triangles[i].GetArea(vertices));
+                            Console.WriteLine("Тип треугольника {0} = {1}", i + 1, triangles[i].GetTriangleType(vertices));
                         }
                     }
+
                     break;
             }
             Console.WriteLine("Средний периметр всех прямоугольных треугольников равен {0}", AvgRightPerimeter /= RighTriangleCounter);
