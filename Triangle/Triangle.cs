@@ -21,7 +21,7 @@ namespace Triangle
             Edge[] edges = new Edge[points.Length];
             for (int i = 0; i < points.Length; i++)
             {
-                if (i < 2)
+                if (i < points.Length - 1)
                     edges[i] = new Edge(points[i], points[i + 1]);
                 else edges[i] = new Edge(points[i], points[0]);
             }
@@ -48,9 +48,6 @@ namespace Triangle
             a = edges[0].GetLength(edges[0].v1, edges[0].v2);
             b = edges[1].GetLength(edges[1].v1, edges[1].v2);
             c = edges[2].GetLength(edges[2].v1, edges[2].v2);
-            Console.WriteLine(a);
-            Console.WriteLine(b);
-            Console.WriteLine(c);
 
             if (((a * a + b * b == c * c) | (b * b + c * c == a * a) | (c * c + a * a == b * b)) & ((a == b) | (a == c) | (b == c)))
                     return 1; //(right and isosceles) прямоугольный и равнобедренный

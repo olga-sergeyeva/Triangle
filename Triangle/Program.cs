@@ -115,7 +115,6 @@ namespace Triangle
                             }
                             Console.WriteLine("Периметр треугольника {0} = {1}", i + 1, triangles[i].GetPerimeter(vertices));
                             Console.WriteLine("Площадь треугольника {0} = {1}", i + 1, triangles[i].GetArea(vertices));
-                            Console.WriteLine("Тип треугольника {0} = {1}", i + 1, triangles[i].GetTriangleType(vertices));
                         }
                     }
 
