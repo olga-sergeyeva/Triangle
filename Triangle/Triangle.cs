@@ -25,6 +25,7 @@ namespace Triangle
                     edges[i] = new Edge(points[i], points[i + 1]);
                 else edges[i] = new Edge(points[i], points[0]);
             }
+
             return edges;
         }
 

@@ -54,9 +54,9 @@ namespace Triangle
                 case 1:
                     for (int i = 0; i < triangles.Length; i++)
                     {
-                        Console.Write("Координаты точек треугольника {0}: ", i + 1);
+                        Console.Write("Координаты точек треугольника №{0}: ", i + 1);
                         for (int j = 0; j < vertices.Length; j++)
-                          GeneratePoints(vertices);
+                            GeneratePoints(vertices);
 
                         PrintPoints(vertices);
                         Console.WriteLine();
@@ -77,9 +77,11 @@ namespace Triangle
                                 AvgIsoscelesArea += triangles[i].GetArea(vertices);
                                 IsoscelesTriangleCounter++;
                             }
-                            Console.WriteLine("Периметр треугольника {0} = {1}", i + 1, triangles[i].GetPerimeter(vertices));
-                            Console.WriteLine("Площадь треугольника {0} = {1}", i + 1, triangles[i].GetArea(vertices));
+                            Console.WriteLine("Периметр треугольника №{0} = {1}", i + 1, triangles[i].GetPerimeter(vertices));
+                            Console.WriteLine("Площадь треугольника №{0} = {1}", i + 1, triangles[i].GetArea(vertices));
                         }
+
+                        else Console.WriteLine("Треугольник №{0} не существует", i + 1);
                     }
 
                     break;
@@ -89,15 +91,15 @@ namespace Triangle
                     {
                         for (int j = 0; j < vertices.Length; j++)
                         {
-                            Console.Write("Введите координату x точки {0} треугольника {1}: ", j, i + 1);
+                            Console.Write("Введите координату x точки {0} треугольника №{1}: ", j, i + 1);
                             vertices[j].x = Convert.ToDouble(Console.ReadLine());
-                            Console.Write("Введите координату y точки {0} треугольника {1}: ", j, i + 1);
+                            Console.Write("Введите координату y точки {0} треугольника №{1}: ", j, i + 1);
                             vertices[j].y = Convert.ToDouble(Console.ReadLine());
                         }
 
                         PrintPoints(vertices);
                         Console.WriteLine();
-                        
+
                         triangles[i] = new Triangle(vertices);
                         if (triangles[i].CheckTriangle(vertices)) //проверка треугольника на существование
                         {
@@ -113,15 +115,43 @@ namespace Triangle
                                 AvgIsoscelesArea += triangles[i].GetArea(vertices);
                                 IsoscelesTriangleCounter++;
                             }
-                            Console.WriteLine("Периметр треугольника {0} = {1}", i + 1, triangles[i].GetPerimeter(vertices));
-                            Console.WriteLine("Площадь треугольника {0} = {1}", i + 1, triangles[i].GetArea(vertices));
+                            Console.WriteLine("Периметр треугольника №{0} = {1}", i + 1, triangles[i].GetPerimeter(vertices));
+                            Console.WriteLine("Площадь треугольника №{0} = {1}", i + 1, triangles[i].GetArea(vertices));
                         }
+
+                        else Console.WriteLine("Треугольник №{0} не существует", i + 1);
                     }
 
                     break;
             }
             Console.WriteLine("Средний периметр всех прямоугольных треугольников равен {0}", AvgRightPerimeter /= RighTriangleCounter);
             Console.WriteLine("Cредняя площадь всех равнобедренных треугольников равна {0}", AvgIsoscelesArea /= IsoscelesTriangleCounter);
+
+            Point[] vertices1 = new Point[4]
+            {
+                new Point(0, 0),
+                new Point(0, 5),
+                new Point(5, 5),
+                new Point(5, 0)
+            };
+
+            Point[] vertices2 = new Point[5]
+            {
+                new Point(0, 3),
+                new Point(2, 1),
+                new Point(4, 1),
+                new Point(5, 4),
+                new Point(3, 6)
+            };
+
+            Polygon polygon1 = new Polygon(vertices1);
+            Polygon polygon2 = new Polygon(vertices2);
+
+            Console.WriteLine("Периметр многоугольника №{0} = {1}", 1, polygon1.GetPerimeter(vertices1));
+            Console.WriteLine("Площадь многоугольника №{0} = {1}", 1, polygon1.GetArea(vertices1));
+
+            Console.WriteLine("Периметр многоугольника №{0} = {1}", 2, polygon2.GetPerimeter(vertices2));
+            Console.WriteLine("Площадь многоугольника №{0} = {1}", 2, polygon2.GetArea(vertices2));
             Console.ReadLine();
         }
     }
